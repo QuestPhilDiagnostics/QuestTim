@@ -19,10 +19,16 @@ class lab {
 			$query->execute();
 
 			return $query->fetch();
-
-
 	}
+	public function fetch_data2($id){
+			global $pdo;
 
+			$query = $pdo->prepare("SELECT * FROM qpd_labresult WHERE PatientID = ?");
+			$query->bindValue(1, $id);
+			$query->execute();
+
+			return $query->fetch();
+	}
 
 }
 ?>

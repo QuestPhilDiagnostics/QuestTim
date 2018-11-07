@@ -7,18 +7,33 @@ include_once('../classes/lab.php');
 date_default_timezone_set("Asia/Kuala_Lumpur");
 $printdate = date("Y-m-d H:i:s");
 
-$id = 8;
+$id = 9;
 $lab = new lab;
 $pat = new Patient;
 $qclass = new qc;
-$ld = $lab->fetch_data($id);
 $pd = $pat->fetch_data($id);
+$ld = $lab->fetch_data2($pd['PatientID']);
 $qc = $qclass->fetch_data($id);
 // for Urinalysis
 $dataU = array( 
 			"Physical/Macroscopic",
 			array('Color',$ld['UriColor']),
 			array('Transparency',$ld['UriTrans']),
+			"Urine Chemical",
+			array('pH',$ld['UriPh']),
+			array('Specific Gravity',$ld['UriSp']),
+			array('Protein',$ld['UriPro']),
+			array('Glucose',$ld['UriGlu']),
+			array('Leukocyte Esterase',$ld['LE']),
+			array('Nirite',$ld['NIT']),
+			array('Urobilinogen',$ld['URO'],'mg/dl','0.2~0.9 mg/dl'),
+			array('Blood',$ld['BLD']),
+			array('Ketone',$ld['KET']),
+			array('Bilirubin',$ld['BIL']),
+			"Microscopic",
+			array('RBC',$ld['RBC'],'/hpf','0-3'),
+			array('WBC',$ld['WBC'],'/hpf','0-5'),
+			array('Epithelial Cells',$ld['ECells']),
 			);
 // for fecalysis
 $dataF = array(			
@@ -65,8 +80,14 @@ $dataF = array(
 	    </div>
 	</div>
 	<div class="row">
-	    <div class="col-1"><p class="labelName">QuestID:</p></div>
+	    <div class="col-1"><p class="labelName">Gender:</p></div>
 	    <div class="col-6">
+	        <span class="lineName"><?php echo $pd['Gender'] ?></span>
+	    </div>
+	    <div class="col-2 text-right">
+	        <p class="labelName">QuestID:</p>
+	    </div>
+	    <div class="col">
 	        <span class="lineName"><?php echo $pd['PatientID'] ?></span>
 	    </div>
 	</div>
@@ -76,16 +97,10 @@ $dataF = array(
 	        <span class="lineName"><?php echo $pd['Age'] ?></span>
 	    </div>
 	    <div class="col-2 text-right">
-	        <p class="labelName">Gender:</p>
+	        <p class="labelName">Clinician:</p>
 	    </div>
 	    <div class="col">
-	        <span class="lineName"><?php echo $pd['Gender'] ?></span>
-	    </div>
-	</div>
-	<div class="row">
-	    <div class="col-1"><p class="labelName" id="Check">Clinician:</p></div>
-	    <div class="col-6">
-	        <span class="lineName" id="CheckAgain"><?php echo $ld['Clinician'] ?></span>
+	        <span class="lineName"><?php echo $ld['Clinician'] ?></span>
 	    </div>
 	</div>
 	<div class="row">
@@ -127,31 +142,38 @@ $dataF = array(
 	<div class="row">
 		<div class="col-4 ml-4 LN"><span style="font-size: 17px;">COMPLETE URINALYSIS</span></div>
 	</div>
-		<div class="col">
 			<?php 
-				for ($i=0; $i < count($dataU); $i++) { 
-					
+			for ($i=0; $i < count($dataU) ; $i++) { 				
+			if (is_array($dataU[$i]) == false) {	
 			?>
-			<div class="row" >
-				<div class="col-4 ml-5 LN"><span style="font-size: 18px;"><?php echo $dataU[0]?></span></div>	
-			</div>
+			<div class="col-12 ml-3 LN"><span style="font-size: 18px;"><?php echo $dataU[$i]?></span></div>
+			
+			<?php }else	{ ?>
 			<div class="row">
-			<?php 
-				if ($i != 0) {
-					for ($x=0; $x < count($dataU[$i]); $x++) {
-					if ($x = 0){
-						$cn = 4;}
-					else{
-						$cn = 2;
-					}	
+				<?php
+					for ($x=0; $x < 4; $x++) {
+					if ($x == 0){
+						$cn = 4;$marL = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+						$dustyle = "";	
+					}else{
+						$cn = 2;$marL = "";$dustyle = "font-weight:bold;";
+					}
+					if (isset($dataU[$i][$x])) {
+						$dUrin = $dataU[$i][$x];
+					}else{
+						$dUrin = "";
+					}
 			?>
-				<div class="col-<?php echo $cn; ?>"><?php echo $dataU[$i][$x]?></div>
+				<div class="col-<?php echo $cn;?>" style="<?php echo $dustyle; ?>"><?php echo $marL; echo $dUrin;?></div>
+			<?php  
+			}?>
 			</div>
-			<?php }}} ?>
-		</div>
+			<?php }}  ?>
+			
+			
 </div>
 
-	<div class="col-md-10">
+	<div class="col-md-10 footer">
 	<div class="card" style="border-radius: 0px; margin-top: 10px;">
 		<div class="card-block" style="height: 1.3in;" >
 				<div class="row">
