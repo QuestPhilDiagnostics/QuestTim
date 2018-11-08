@@ -23,13 +23,14 @@ $dataC = array(
 			array("Monocytes", $ld['Monocytes']. " %", "5.00~12.00"),
 			array("Eosinophils", $ld['EOS']. " %", "1.00~7.00"),
 			array("Basophils", $ld['BAS']. " %", "0.00~1. 00"),
-			array("RBC", $ld['CBCRBC']),
-			array("Hemoglobin", $ld['Hemoglobin']),
-			array("Hematocrit", $ld['Hematocrit']),
-			array("PLATELET", $ld['PLT']),
-			array("BLOOD TYPE", ''),//add blood type to database
+			array("RBC", $ld['CBCRBC']. " X10 ^6/L", "4.32~5.72"),
+			array("Hemoglobin", $ld['Hemoglobin']. " g/L", "M: 137.00~175.00", "F: 112.00~157.00"),
+			array("Hematocrit", $ld['Hematocrit']. " Vol. Fraction", "M: 0.40~0.51", "F: 0.34~0.45"),
+			array("PLATELET", $ld['PLT']. "x10^3/mm3", "150~400"),
+			//array("BLOOD TYPE", ''),//add blood type to database
 			);
-
+$bt = $ld['BloodType'];
+$fmt = "300px";
 ?>
 
 <html>
@@ -115,13 +116,13 @@ $dataC = array(
 </div>
 <div class="col-md-10 "><!-- Code for Urinalysis Form -->
 	<div class="row resultlabel" >
-			<div class="col-5">HEMATOLOGY</div>
+			<div class="col-3">HEMATOLOGY</div>
 			<div class="col-3">SI Units</div>
 			<div class="col-2"></div>
 			<div class="col-2"></div>
 	</div>
 	<div class="row">
-		<div class="col-4 ml-4 LN"><span style="font-size: 17px;">COMPLETE BLOOD COUNT</span></div>
+		<div class="col-4 ml-4 mt-3 LN"><span style="font-size: 17px;">COMPLETE BLOOD COUNT</span></div>
 	</div>
 			<div class="row">
 				<?php
@@ -129,9 +130,9 @@ $dataC = array(
 					for ($x=0; $x < 4; $x++) {
 					if ($x == 0){
 						$marL = "ml-5";
-						$dustyle = "";$colnum = "col-5";	
+						$dustyle = "";$colnum = "col-3";	
 					}else{
-						$marL = "ml-3";$dustyle = "font-weight:bold;";$colnum = "col-2";
+						$marL = "ml-3";$dustyle = "font-weight:bold;";$colnum = "col-3";
 					}
 					if (isset($dataC[$i][$x])) {
 						$dCBC = $dataC[$i][$x];
@@ -144,7 +145,17 @@ $dataC = array(
 				</div>
 			<?php }}  ?>
 			</div>
-	<!-- Code for Fecalysis Form -->
+			<?php if ($bt != "") {
+				$btvis = "block";
+			}else{
+				$btvis = "none";
+			}
+			?>
+			<div class="row mt-3 ml-4">
+				<div class="col-3" style="font-weight: bold;display: <?php echo $btvis; ?>">BLOOD TYPE</div>
+				<div class="col-3"><?php echo "" ?></div>
+			</div>
+	
 </div>
 	<div style="margin-top: <?php echo $fmt;?>">
 	<div class="col-md-10 ">

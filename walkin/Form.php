@@ -7,7 +7,7 @@ include_once('../classes/lab.php');
 date_default_timezone_set("Asia/Kuala_Lumpur");
 $printdate = date("Y-m-d H:i:s");
 
-$id = 8;
+$id = 12;
 $lab = new lab;
 $pat = new Patient;
 $qclass = new qc;
@@ -63,18 +63,22 @@ $ddn = 1; //if fecalysis and urinalysis form
 //$ddn = 4; //if only CBC
 if ($ddn == 1) {
 	if ($dataU[1][1] != "" && $dataF[0][1] != "") {
-	$fmt = "50px";$bohU = "block";$bohF = "block";
+	//$fmt = "50px";
+	$bohU = "block";$bohF = "block";
 	}else if($dataU[1][1] != ""){
-		$fmt = "220px";$bohU = "block";$bohF = "none";
+		//$fmt = "220px";
+		$bohU = "block";$bohF = "none";
 	}else if ($dataF[1][1] != "") {
-	$fmt = "550px";$bohU = "none";$bohF = "block";
+	//$fmt = "550px";
+	$bohU = "none";$bohF = "block";
 }
 }
+//$fmt = "1170px";
 if ($ddn == 2) {
 	# code...
 }
 
-
+//816*1056
 ?>
 
 <html>
@@ -95,7 +99,7 @@ if ($ddn == 2) {
 	<img src="../assets/QPDHeader.jpg" height="100px" width="100%">
 </div>
 <div class="col-md-10">
-	<div class="card" style="border-radius: 0px; margin-top: 10px;">
+	<div class="card" style="border-radius: 0px; ">
 	<div class="card-header"><center><b>QUEST PHIL DIAGNOSTICS</b></center></div>
 	<div class="card-block">
 	<div class="row">
@@ -158,74 +162,10 @@ if ($ddn == 2) {
 	</div>
 	</div>
 </div>
-<div class="col-md-10 "><!-- Code for Urinalysis Form -->
-	<div style="display: <?php echo $bohU;?>">
-	<div class="row resultlabel" >
-			<div class="col-4">TEST</div>
-			<div class="col-2">RESULT</div>
-			<div class="col-2">UNIT REFERENCE</div>
-			<div class="col-2">RANGES</div>
-			<div class="col-2">COMMENTS</div>
-	</div>
-	<div class="row">
-		<div class="col-4 ml-4 mt-1 LN" >
-			<span style="font-size: 19px;">CLINICAL MICROSCOPY</span>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-4 ml-4 LN"><span style="font-size: 17px;">COMPLETE URINALYSIS</span></div>
-	</div>
-			<?php 
-			for ($i=0; $i < count($dataU) ; $i++) { 				
-			if (is_array($dataU[$i]) == false) {	
-			?>
-			<div class="col-12 ml-3 LN"><span style="font-size: 18px;"><?php echo $dataU[$i]?></span></div>
-			
-			<?php }else	{ ?>
-			<div class="row">
-				<?php
-					for ($x=0; $x < 4; $x++) {
-					if ($x == 0){
-						$cn = 4;$marL = "ml-5";
-						$dustyle = "";	
-					}else{
-						$cn = 2;$marL = "";$dustyle = "font-weight:bold;";
-					}
-					if (isset($dataU[$i][$x])) {
-						$dUrin = $dataU[$i][$x];
-					}else{
-						$dUrin = "";
-					}
-			?>
-				<div class="col-<?php echo $cn;?>" style="<?php echo $dustyle; ?>">
-					<span class="<?php echo $marL; ?>"><?php echo $dUrin;?></span></div>
-			<?php  
-			}?>
-			</div>
-			<?php }}  ?>
-	</div>
-	<!-- Code for Fecalysis Form -->
-	<div style="display: <?php echo $bohF;?>">
-	<div class="row resultlabel mt-3" >
-		<div class="col-6">TEST</div>
-		<div class="col-6">RESULT</div>
-	</div>
-	<div class="row">
-		<div class="col-4 ml-4 LN"><span style="font-size: 17px;">ROUTINE FECALYSIS</span></div>
-	</div>
-		<?php for ($y=0; $y < count($dataF); $y++) {
-		if ($dataF[$y][1] != "") {
-		?>
-		<div class="row" style="font-size: 18px;">
-			<div class="col-6"><span class="ml-4"><?php echo $dataF[$y][0]?></span></div>
-			<div class="col-6" style="font-weight: bolder"><?php echo $dataF[$y][1]?></div>	
-		</div>	
-		<?php }}  ?>
-	</div>
-</div>
-	<div style="margin-top: <?php echo $fmt;?>">
+<!--Footer-->
+<div style="position: absolute;margin-top: 750px;">
 	<div class="col-md-10 ">
-	Note: Specimen rechecked, result/s verified.
+	<span style="font-size: 12px;">Note: Specimen rechecked, result/s verified.</span>
 	<div class="card" style="border-radius: 0px; margin-top: 10px;">
 		<div class="card-block" style="height: 1.3in;" >
 				<div class="row">
@@ -255,7 +195,75 @@ if ($ddn == 2) {
 	<div class="col-md-10">
 		<img src="../assets/QPDFooter.jpg" height="50px" width="100%">
 	</div>
+</div>
+<!-- Footer End -->
+<div class="col-md-10 "><!-- Code for Urinalysis Form -->
+	<div style="display: <?php echo $bohU;?>">
+	<div class="row resultlabel" >
+			<div class="col-4">TEST</div>
+			<div class="col-2">RESULT</div>
+			<div class="col-2">UNIT REFERENCE</div>
+			<div class="col-2">RANGES</div>
+			<div class="col-2">COMMENTS</div>
 	</div>
+	<div class="row">
+		<div class="col-4 ml-4 mt-1 LN" >
+			<span style="font-size: 16px;">CLINICAL MICROSCOPY</span>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-4 ml-4 LN"><span style="font-size: 15px;">COMPLETE URINALYSIS</span></div>
+	</div>
+			<?php 
+			for ($i=0; $i < count($dataU) ; $i++) {
+			//$fmt = $fmt - 25; 				
+			if (is_array($dataU[$i]) == false) {	
+			?>
+			<div class="col-12 ml-3 LN"><span style="font-size: 16px;"><?php echo $dataU[$i]?></span></div>
+			
+			<?php }else	{ ?>
+			<div class="row">
+				<?php
+					for ($x=0; $x < 4; $x++) {
+					if ($x == 0){
+						$cn = 4;$marL = "ml-5";
+						$dustyle = "";	
+					}else{
+						$cn = 2;$marL = "";$dustyle = "font-weight:bold;";
+					}
+					if (isset($dataU[$i][$x])) {
+						$dUrin = $dataU[$i][$x];
+					}else{
+						$dUrin = "";
+					}
+			?>
+				<div class="col-<?php echo $cn;?>" style="<?php echo $dustyle; ?>">
+					<span class="<?php echo $marL; ?>"><?php echo $dUrin;?></span></div>
+			<?php  
+			}?>
+			</div>
+			<?php }}  ?>
+	</div>
+	<!-- Code for Fecalysis Form -->
+	<div style="display: <?php echo $bohF;?>; ">
+	<div class="row resultlabel mt-1" >
+		<div class="col-6">TEST</div>
+		<div class="col-6">RESULT</div>
+	</div>
+	<div class="row">
+		<div class="col-4 ml-4 LN"><span style="font-size: 17px;">ROUTINE FECALYSIS</span></div>
+	</div>
+		<?php for ($y=0; $y < count($dataF); $y++) {
+		if ($dataF[$y][1] != "") {
+		?>
+		<div class="row" style="font-size: 16px;">
+			<div class="col-6"><span class="ml-4"><?php echo $dataF[$y][0]?></span></div>
+			<div class="col-6" style="font-weight: bolder"><?php echo $dataF[$y][1]?></div>	
+		</div>	
+		<?php }}  ?>
+	</div>
+</div>
+	
 </div>
 </body>
 </html>
