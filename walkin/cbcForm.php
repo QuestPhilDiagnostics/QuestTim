@@ -30,6 +30,7 @@ $dataC = array(
 			//array("BLOOD TYPE", ''),//add blood type to database
 			);
 $bt = $ld['BloodType'];
+$bt = "A Positive";
 $fmt = "300px";
 ?>
 
@@ -114,52 +115,10 @@ $fmt = "300px";
 	</div>
 	</div>
 </div>
-<div class="col-md-10 "><!-- Code for Urinalysis Form -->
-	<div class="row resultlabel" >
-			<div class="col-3">HEMATOLOGY</div>
-			<div class="col-3">SI Units</div>
-			<div class="col-2"></div>
-			<div class="col-2"></div>
-	</div>
-	<div class="row">
-		<div class="col-4 ml-4 mt-3 LN"><span style="font-size: 17px;">COMPLETE BLOOD COUNT</span></div>
-	</div>
-			<div class="row">
-				<?php
-				for ($i=0; $i < count($dataC); $i++) { 
-					for ($x=0; $x < 4; $x++) {
-					if ($x == 0){
-						$marL = "ml-5";
-						$dustyle = "";$colnum = "col-3";	
-					}else{
-						$marL = "ml-3";$dustyle = "font-weight:bold;";$colnum = "col-3";
-					}
-					if (isset($dataC[$i][$x])) {
-						$dCBC = $dataC[$i][$x];
-					}else{
-						$dCBC = "";
-					}
-			?>
-				<div class="<?php echo $colnum;?>" style="<?php echo $dustyle; ?>">
-					<span class="<?php echo $marL; ?>"><?php echo $dCBC;?></span>
-				</div>
-			<?php }}  ?>
-			</div>
-			<?php if ($bt != "") {
-				$btvis = "block";
-			}else{
-				$btvis = "none";
-			}
-			?>
-			<div class="row mt-3 ml-4">
-				<div class="col-3" style="font-weight: bold;display: <?php echo $btvis; ?>">BLOOD TYPE</div>
-				<div class="col-3"><?php echo "" ?></div>
-			</div>
-	
-</div>
-	<div style="margin-top: <?php echo $fmt;?>">
+<!--Footer-->
+<div style="position: absolute;margin-top: 750px;">
 	<div class="col-md-10 ">
-	Note: Specimen rechecked, result/s verified.
+	<span style="font-size: 12px;">Note: Specimen rechecked, result/s verified.</span>
 	<div class="card" style="border-radius: 0px; margin-top: 10px;">
 		<div class="card-block" style="height: 1.3in;" >
 				<div class="row">
@@ -189,7 +148,47 @@ $fmt = "300px";
 	<div class="col-md-10">
 		<img src="../assets/QPDFooter.jpg" height="50px" width="100%">
 	</div>
+</div>
+<!-- Footer End -->
+<div class="col-md-10 "><!-- Code for Urinalysis Form -->
+	<div class="row resultlabel" >
+			<div class="col-3">HEMATOLOGY</div>
+			<div class="col-3">SI Units</div>
+			<div class="col-2"></div>
+			<div class="col-2"></div>
 	</div>
+	<div class="row">
+		<div class="col-4 ml-4 mt-3 mb-2 LN"><span style="font-size: 20px;">COMPLETE BLOOD COUNT</span></div>
+	</div>
+			<div class="row">
+				<?php
+				for ($i=0; $i < count($dataC); $i++) { 
+					for ($x=0; $x < 4; $x++) {
+					if ($x == 0){
+						$marL = "ml-5";
+						$dustyle = "";$colnum = "col-3";	
+					}else{
+						$marL = "ml-3";$dustyle = "font-weight:bold;";$colnum = "col-3";
+					}
+					if (isset($dataC[$i][$x])) {
+						$dCBC = $dataC[$i][$x];
+					}else{
+						$dCBC = "";
+					}
+			?>
+				<div class="<?php echo $colnum;?>" style="<?php echo $dustyle; ?>">
+					<span class="<?php echo $marL; ?>"><?php echo $dCBC;?></span>
+				</div>
+			<?php }}  ?>
+			</div>
+			<?php if ($bt != "") {
+			?>
+			<div class="row mt-4 ml-4" style="font-weight: bold;font-size: 20px">
+				<div class="col-3" >BLOOD TYPE</div>
+				<div class="col-3"><?php echo $bt; ?></div>
+			</div>
+			<?php } ?>
+</div>
 </div>
 </body>
 </html>
