@@ -7,7 +7,7 @@ include_once('../classes/lab.php');
 date_default_timezone_set("Asia/Kuala_Lumpur");
 $printdate = date("Y-m-d H:i:s");
 
-$id = 8;
+$id = 4;
 $lab = new lab;
 $pat = new Patient;
 $qclass = new qc;
@@ -134,43 +134,7 @@ $qc = $qclass->fetch_data($id);
 </div>
 <!-- Footer End -->
 <div class="col-md-10 "><!-- Code for Urinalysis Form -->
-	<div class="row resultlabel" >
-			<div class="col-3">HEMATOLOGY</div>
-			<div class="col-3">SI Units</div>
-			<div class="col-2"></div>
-			<div class="col-2"></div>
-	</div>
-	<div class="row">
-		<div class="col-4 ml-4 mt-3 mb-2 LN"><span style="font-size: 20px;">COMPLETE BLOOD COUNT</span></div>
-	</div>
-			<div class="row">
-				<?php
-				for ($i=0; $i < count($dataC); $i++) { 
-					for ($x=0; $x < 4; $x++) {
-					if ($x == 0){
-						$marL = "ml-5";
-						$dustyle = "";$colnum = "col-3";	
-					}else{
-						$marL = "ml-3";$dustyle = "font-weight:bold;";$colnum = "col-3";
-					}
-					if (isset($dataC[$i][$x])) {
-						$dCBC = $dataC[$i][$x];
-					}else{
-						$dCBC = "";
-					}
-			?>
-				<div class="<?php echo $colnum;?>" style="<?php echo $dustyle; ?>">
-					<span class="<?php echo $marL; ?>"><?php echo $dCBC;?></span>
-				</div>
-			<?php }}  ?>
-			</div>
-			<?php if ($bt != "") {
-			?>
-			<div class="row mt-4 ml-4" style="font-weight: bold;font-size: 20px">
-				<div class="col-3" >BLOOD TYPE</div>
-				<div class="col-3"><?php echo $bt; ?></div>
-			</div>
-			<?php } ?>
+		
 </div>
 </div>
 </body>
